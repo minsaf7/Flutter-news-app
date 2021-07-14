@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutternews/Helpers/News.dart';
 import 'package:flutternews/Helpers/data.dart';
+import 'package:flutternews/Models/ArticleModel.dart';
 import 'package:flutternews/Models/CategoryModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,12 +14,25 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<CategoryModel> categoryModel = [];
+  List<ArticleModel> articles = [];
+  bool isLoading = true;
+
+  getArticles() async {
+    News newsArticle = News();
+    await newsArticle.getNews();
+    articles = newsArticle.news;
+    print("articles");
+    print(articles);
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    getArticles();
     categoryModel = getCategory();
     print(categoryModel);
   }
@@ -73,34 +88,56 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 5, right: 5),
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              imageUrl,
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        margin: EdgeInsets.only(left: 5, right: 5),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                imageUrl,
+                width: 120,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
               width: 120,
               height: 60,
-              fit: BoxFit.cover,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black.withOpacity(0.5),
+              ),
+              child: Text(
+                categoryTitle,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.nunito(color: Colors.white),
+              ),
             ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            width: 120,
-            height: 60,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.black.withOpacity(0.5),
-            ),
-            child: Text(
-              categoryTitle,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.nunito(color: Colors.white),
-            ),
-          ),
-        ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class NewsTile extends StatelessWidget {
+  final String imageUrl, title, description;
+  const NewsTile(
+      {Key? key,
+      required this.imageUrl,
+      required this.title,
+      required this.description})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [Image.network(imageUrl), Text(title), Text(description)],
       ),
     );
   }
