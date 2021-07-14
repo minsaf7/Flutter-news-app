@@ -14,18 +14,18 @@ List<CategoryModel> getCategory() {
 //2
   model = CategoryModel();
 
-  model.categoryTitle = "Business";
+  model.categoryTitle = "Entertainment";
   model.imageUrl =
-      "https://gordontredgold.com/wp-content/uploads/2018/08/business.jpg";
+      "https://analyticsinsight.b-cdn.net/wp-content/uploads/2019/02/Media-and-Entertainment.jpg";
 
   category.add(model);
 
 //3
   model = CategoryModel();
 
-  model.categoryTitle = "Business";
+  model.categoryTitle = "General";
   model.imageUrl =
-      "https://gordontredgold.com/wp-content/uploads/2018/08/business.jpg";
+      "https://images.theconversation.com/files/32912/original/dp2v9tty-1381627354.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip";
 
   category.add(model);
 

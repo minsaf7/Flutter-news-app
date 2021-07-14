@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutternews/Helpers/News.dart';
 import 'package:flutternews/Helpers/data.dart';
 import 'package:flutternews/Models/ArticleModel.dart';
 import 'package:flutternews/Models/CategoryModel.dart';
+import 'package:flutternews/Views/ArticleView.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
@@ -93,10 +95,18 @@ class _HomeState extends State<Home> {
                           shrinkWrap: true,
                           itemCount: articles.length,
                           itemBuilder: (context, index) {
-                            return NewsTile(
-                              imageUrl: articles[index].urlToImage!,
-                              title: articles[index].title,
-                              description: articles[index].description!,
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (builder) => ArticleVIew(
+                                          url: articles[index].url,
+                                        )));
+                              },
+                              child: NewsTile(
+                                imageUrl: articles[index].urlToImage!,
+                                title: articles[index].title,
+                                description: articles[index].description!,
+                              ),
                             );
                           }),
                     ),
@@ -167,9 +177,35 @@ class NewsTile extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Image.network(imageUrl!),
-          Text(title),
-          Text(description),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            // child: Image.network(imageUrl!),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl!,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  CircularProgressIndicator(value: downloadProgress.progress),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
+          ),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.nunito(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Text(
+              description,
+              style: GoogleFonts.nunito(color: Colors.grey[800]),
+            ),
+          ),
+          Divider(
+            height: 20,
+            color: Colors.black,
+          )
         ],
       ),
     );
