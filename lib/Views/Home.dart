@@ -5,6 +5,7 @@ import 'package:flutternews/Helpers/data.dart';
 import 'package:flutternews/Models/ArticleModel.dart';
 import 'package:flutternews/Models/CategoryModel.dart';
 import 'package:flutternews/Views/ArticleView.dart';
+import 'package:flutternews/Views/NewsCategory.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
@@ -126,7 +127,14 @@ class CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (builder) => NewsCategory(
+                      categoryName: categoryTitle,
+                    )));
+      },
       child: Container(
         margin: EdgeInsets.only(left: 5, right: 5),
         child: Stack(
