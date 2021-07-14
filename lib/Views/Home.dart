@@ -57,26 +57,32 @@ class _HomeState extends State<Home> {
         ),
         elevation: 0,
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              height: 70,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categoryModel.length,
-                  itemBuilder: (context, index) {
-                    return CategoryTile(
-                      categoryTitle: categoryModel[index].categoryTitle,
-                      imageUrl: categoryModel[index].imageUrl,
-                    );
-                  }),
+      body: isLoading
+          ? Center(
+              child: Container(
+                child: CircularProgressIndicator(),
+              ),
             )
-          ],
-        ),
-      ),
+          : Container(
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    height: 70,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: categoryModel.length,
+                        itemBuilder: (context, index) {
+                          return CategoryTile(
+                            categoryTitle: categoryModel[index].categoryTitle,
+                            imageUrl: categoryModel[index].imageUrl,
+                          );
+                        }),
+                  )
+                ],
+              ),
+            ),
     );
   }
 }
