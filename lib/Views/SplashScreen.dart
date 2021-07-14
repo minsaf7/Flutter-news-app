@@ -16,10 +16,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Timer(Duration(seconds: 3), () {
-    //   Navigator.pushReplacement(
-    //       context, MaterialPageRoute(builder: (builder) => Home()));
-    // });
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (builder) => Home()));
+    });
   }
 
   @override
@@ -35,7 +35,8 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 "FLUTTERNEWS",
                 style: GoogleFonts.robotoMono(
-                  letterSpacing: 3,
+                  fontSize: 18,
+                  letterSpacing: 1,
                   fontWeight: FontWeight.bold,
                 ),
               ),
