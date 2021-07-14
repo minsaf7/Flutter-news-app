@@ -8,12 +8,13 @@ class ArticleModel {
   late String publishedAt;
   late String? content;
 
-  ArticleModel(
-      {this.auther,
-      this.content,
-      this.description,
-      required this.publishedAt,
-      required this.title,
-      required this.url,
-      this.urlToImage});
+  ArticleModel({
+    this.auther,
+    this.content,
+    this.description,
+    required this.publishedAt,
+    required this.title,
+    required this.url,
+    this.urlToImage,
+  });
 }

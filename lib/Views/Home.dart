@@ -57,6 +57,7 @@ class _HomeState extends State<Home> {
         ),
         elevation: 0,
       ),
+      backgroundColor: Colors.white,
       body: isLoading
           ? Center(
               child: Container(
@@ -66,6 +67,7 @@ class _HomeState extends State<Home> {
           : Container(
               child: Column(
                 children: [
+                  //category couresal
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     height: 70,
@@ -79,7 +81,26 @@ class _HomeState extends State<Home> {
                             imageUrl: categoryModel[index].imageUrl,
                           );
                         }),
-                  )
+                  ),
+
+                  //news tile
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    // height: 480,
+                    height: MediaQuery.of(context).size.height * 0.75,
+                    child: Container(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: articles.length,
+                          itemBuilder: (context, index) {
+                            return NewsTile(
+                              imageUrl: articles[index].urlToImage!,
+                              title: articles[index].title,
+                              description: articles[index].description!,
+                            );
+                          }),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -131,10 +152,12 @@ class CategoryTile extends StatelessWidget {
 }
 
 class NewsTile extends StatelessWidget {
-  final String imageUrl, title, description;
+  final String? imageUrl;
+  final String title, description;
   const NewsTile(
       {Key? key,
-      required this.imageUrl,
+      this.imageUrl =
+          "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg",
       required this.title,
       required this.description})
       : super(key: key);
@@ -143,7 +166,11 @@ class NewsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-        children: [Image.network(imageUrl), Text(title), Text(description)],
+        children: [
+          Image.network(imageUrl!),
+          Text(title),
+          Text(description),
+        ],
       ),
     );
   }
